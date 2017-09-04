@@ -5,13 +5,13 @@ let hapi = require('hapi');
 let http = require('http');
 let plugin = require('./');
 
-test('default options', function(t) {
+test('http with default options', function(t) {
   t.plan(2);
 
   Server().inject({
     url: '/',
     headers: {
-      "host": 'host',
+      "host": 'host'
     },
   }, function(response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
@@ -19,10 +19,25 @@ test('default options', function(t) {
   });
 });
 
-test('www request: options = {www: false}', function(t) {
+/*test('https with default options', function(t) {
   t.plan(2);
 
-  Server({www: false, https:false}).inject({
+  Server().inject({
+    url: '/',
+    headers: {
+      "host": 'host',
+      "protocol":"https"
+    },
+  }, function(response) {
+    t.equal(response.statusCode, 200, 'receives 200');
+    t.equal(response.result, 'Bingo!', 'receives body');
+  });
+});*/
+
+test('www request: options = {nonwww: true}', function(t) {
+  t.plan(2);
+
+  Server({nonwww: true, https:false}).inject({
     url: '/',
     headers: {
       host: 'www.host',
@@ -61,10 +76,10 @@ test('non-www request: options = {www: true}', function(t) {
   });
 });
 
-test('non-www request: options = {www: false}', function(t) {
+test('non-www request: options = {nonwww: true}', function(t) {
   t.plan(2);
 
-  Server({www: false, https:false}).inject({
+  Server({nonwww: true, https:false}).inject({
     url: '/',
     headers: {
       host: 'host',
@@ -96,7 +111,7 @@ test('query string', function(t) {
 test('only https', function(t) {
   t.plan(2);
 
-  Server({www:false}).inject({
+  Server({}).inject({
     url: '/',
     headers: {
       "host": 'host',
@@ -118,6 +133,20 @@ test('https with www redirect', function(t) {
   }, function(response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'https://www.host/', 'sets Location header');
+  });
+});
+
+test('https with non-www redirect', function(t) {
+  t.plan(2);
+
+  Server({https:true, nonwww: true}).inject({
+    url: '/',
+    headers: {
+      "host": 'www.host',
+    },
+  }, function(response) {
+    t.equal(response.statusCode, 301, 'sets 301 code');
+    t.equal(response.headers.location, 'https://host/', 'sets Location header');
   });
 });
 

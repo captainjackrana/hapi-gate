@@ -9,7 +9,7 @@ let plugin = {
       let protocol = request.connection.info.protocol;
       let redirect = false;
 
-      if((opts.www && !/^www\./.test(host)) || (!opts.www && /^www\./.test(host))) {
+      if((opts.www && !/^www\./.test(host)) || (opts.nonwww && /^www\./.test(host))) {
           host = opts.www ? 'www.' + host : host.replace(/^www\./, '');
           redirect = true;
       }
