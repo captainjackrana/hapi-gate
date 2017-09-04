@@ -1,9 +1,9 @@
 hapi-gate
 ==================
 
-> hapi plugin that adds basic redirections to your server ( http -> https and www/non-www redirects)
+> A lightweight hapi plugin that adds basic redirections to your server ( http -> https and www/non-www redirects)
 
-As a default, any incoming http request will be redirected (301) to the same host and path with `'https'` as the protocol. 
+As a default, any incoming http request will be redirected **(301)** to the same host and path with `https` as the protocol. 
 Highly influenced from [hapi-require-https](https://github.com/bendrucker/hapi-require-https). If you're only looking for https redirections, you can use that plugin..
 
 ## Usage
@@ -20,21 +20,21 @@ server.register({
 
 #### options
 
-##### https
+##### **https**
 
 Type: `boolean`  
 Default: `true`
 
 Indicates whether the server should redirect any non-https calls to the https protocol
 
-##### www
+##### **www**
 
 Type: `boolean`  
 Default: `false`
 
 Indicates whether the server should redirect any non-www requests to the www subdomain. For instance, after setting this to true, a request made to `https://example.com` will be redirected (301) to `https://www.example.com`
 
-##### nonwww
+##### **nonwww**
 
 Type: `boolean`  
 Default: `false`
