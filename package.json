@@ -1,0 +1,39 @@
+{	"name": "hapi-gate",
+	"version": "1.0.0",
+	"description": "hapi http -> https and www <-> non-www redirections",
+	"main": "index.js",
+	"scripts": {
+		"test": "standard && test-peer-range hapi",
+		"test-main": "tape test.js"	
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/captainjackrana/hapi-gate.git"
+	},
+	"keywords": [
+		"hapi",
+		"https",
+		"redirect",
+		"www"
+	],
+	"author": "Yashveer Rana <captainjackrana@gmail.com>",
+	"contributors": [
+		],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/captainjackrana/hapi-gate/issues"
+	},
+	"homepage": "https://github.com/captainjackrana/hapi-gate",
+	"devDependencies": {
+		"hapi": "^16.0.1",
+		"standard": "^8.0.0",
+		"tape": "~4.6.0",
+		"test-peer-range": "~1.0.1"	
+	},
+	"peerDependencies": {
+		"hapi": ">=8 <17"
+	},
+	"files": [
+		"*.js"	
+	]
+}
