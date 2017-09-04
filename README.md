@@ -20,21 +20,21 @@ server.register({
 
 #### options
 
-###### https
+##### https
 
 Type: `boolean`  
 Default: `true`
 
 Indicates whether the server should redirect any non-https calls to the https protocol
 
-###### www
+##### www
 
 Type: `boolean`  
 Default: `false`
 
 Indicates whether the server should redirect any non-www requests to the www subdomain. For instance, after setting this to true, a request made to `https://example.com` will be redirected (301) to `https://www.example.com`
 
-###### nonwww
+##### nonwww
 
 Type: `boolean`  
 Default: `false`
