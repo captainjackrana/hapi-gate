@@ -15,7 +15,7 @@ test('default options', function(t) {
     },
   }, function(response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
-    t.equal(response.headers.location, 'https://www.host/', 'sets Location header');
+    t.equal(response.headers.location, 'https://host/', 'sets Location header');
   });
 });
 

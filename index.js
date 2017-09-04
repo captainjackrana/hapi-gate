@@ -3,7 +3,7 @@
 let plugin = {
   register: function(server, options, next) {
     server.ext('onRequest', function (request, reply) {
-      let defaultOpts = { www: true, https: true };// default www redirects
+      let defaultOpts = {https: true };// default www redirects
       let opts = Object.assign(defaultOpts, options); 
       let host = request.headers.host;
       let protocol = request.connection.info.protocol;
