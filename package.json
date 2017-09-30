@@ -1,5 +1,5 @@
 {	"name": "hapi-gate",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "hapi http -> https and www <-> non-www redirections",
 	"main": "index.js",
 	"scripts": {
