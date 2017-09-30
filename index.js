@@ -1,5 +1,7 @@
 'use strict';
 
+let Url = require('url');
+
 let plugin = {
   register: function(server, options, next) {
     server.ext('onRequest', function (request, reply) {
@@ -22,7 +24,7 @@ let plugin = {
 
       if (redirect) {
               return reply()
-                  .redirect(protocol + '://' + host + request.url.path)
+                  .redirect(Url.format({protocol: protocol, hostname: host, pathname: request.url.pathname, search: request.url.search}))
                   .code(301);
       }
 

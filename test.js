@@ -108,6 +108,42 @@ test('query string', function(t) {
   });
 });
 
+test('simple path', function(t) {
+  t.plan(2);
+
+  Server({www:true, https:true}).inject({
+    url: '/t/e/s/t',
+    headers: {
+      "host": 'host',
+    },
+  }, function(response) {
+    t.equal(response.statusCode, 301, 'sets 301 code');
+    t.equal(
+      response.headers.location,
+      'https://www.host/t/e/s/t',
+      'sets Location header with path'
+    );
+  });
+});
+
+test('simple path with query string', function(t) {
+  t.plan(2);
+
+  Server({www:true, https:true}).inject({
+    url: '/t/e/s/t?a=b&c=d',
+    headers: {
+      "host": 'host',
+    },
+  }, function(response) {
+    t.equal(response.statusCode, 301, 'sets 301 code');
+    t.equal(
+      response.headers.location,
+      'https://www.host/t/e/s/t?a=b&c=d',
+      'sets Location header with path and query string'
+    );
+  });
+});
+
 test('only https', function(t) {
   t.plan(2);
 
