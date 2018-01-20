@@ -1,6 +1,6 @@
 'use strict';
 
-let test = require('tape');
+let test = require('blue-tape');
 let hapi = require('hapi');
 let http = require('http');
 let plugin = require('./');
@@ -13,7 +13,8 @@ test('http with default options', function(t) {
     headers: {
       "host": 'host'
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'https://host/', 'sets Location header');
   });
@@ -28,9 +29,10 @@ test('http with default options', function(t) {
       "host": 'host',
       "protocol":"https"
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 200, 'receives 200');
-    t.equal(response.result, 'Bingo!', 'receives body');
+    t.equal(response.result, 'Awesome!', 'receives body');
   });
 });*/
 
@@ -42,7 +44,8 @@ test('www request: options = {nonwww: true}', function(t) {
     headers: {
       host: 'www.host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'http://host/', 'sets Location header');
   });
@@ -56,9 +59,10 @@ test('www request: options = {www: true}', function(t) {
     headers: {
       host: 'www.host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 200, 'receives 200');
-    t.equal(response.result, 'Bingo!', 'receives body');
+    t.equal(response.result, 'Awesome!', 'receives body');
   });
 });
 
@@ -70,7 +74,8 @@ test('non-www request: options = {www: true}', function(t) {
     headers: {
       host: 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'http://www.host/', 'sets Location header');
   });
@@ -84,9 +89,10 @@ test('non-www request: options = {nonwww: true}', function(t) {
     headers: {
       host: 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 200, 'receives 200');
-    t.equal(response.result, 'Bingo!', 'receives body');
+    t.equal(response.result, 'Awesome!', 'receives body');
   });
 });
 
@@ -98,7 +104,8 @@ test('query string', function(t) {
     headers: {
       "host": 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(
       response.headers.location,
@@ -116,7 +123,8 @@ test('simple path', function(t) {
     headers: {
       "host": 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(
       response.headers.location,
@@ -134,7 +142,8 @@ test('simple path with query string', function(t) {
     headers: {
       "host": 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(
       response.headers.location,
@@ -152,7 +161,8 @@ test('only https', function(t) {
     headers: {
       "host": 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'https://host/', 'sets Location header');
   });
@@ -166,7 +176,8 @@ test('https with www redirect', function(t) {
     headers: {
       "host": 'host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'https://www.host/', 'sets Location header');
   });
@@ -180,26 +191,22 @@ test('https with non-www redirect', function(t) {
     headers: {
       "host": 'www.host',
     },
-  }, function(response) {
+  })
+  .then(function (response) {
     t.equal(response.statusCode, 301, 'sets 301 code');
     t.equal(response.headers.location, 'https://host/', 'sets Location header');
   });
 });
 
 function Server(options) {
-  let server = new hapi.Server();
-  server.connection();
-  server.register({register: plugin, options: options}, throwErr);
+  let server = hapi.server();
+  server.register({plugin: plugin, options: options});
   server.route({
     method: 'GET',
     path: '/',
-    handler: function(request, reply) {
-      reply('Bingo!');
+    handler: function(request, h) {
+      return h.response('Awesome!');
     },
   });
   return server;
-}
-
-function throwErr(err) {
-  if (err) throw err;
 }
