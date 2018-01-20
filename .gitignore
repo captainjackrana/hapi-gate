@@ -1,3 +1,4 @@
 
-#nodde modules
+#node modules
 node_modules
+.jshintrc
