@@ -182,6 +182,38 @@ test('https with www redirect', function (t) {
     })
 })
 
+test('https with proxy and www redirect', function (t) {
+  t.plan(2)
+
+  Server({ https: true, proxy: true, www: true }).inject({
+    url: '/',
+    headers: {
+      'host': 'host',
+      'X-Forwarded-Proto': 'http'
+    }
+  })
+    .then(function (response) {
+      t.equal(response.statusCode, 301, 'sets 301 code')
+      t.equal(response.headers.location, 'https://www.host/', 'sets Location header')
+    })
+})
+
+test('https with proxy and non-www redirect', function (t) {
+  t.plan(2)
+
+  Server({ https: true, proxy: true, nonwww: true }).inject({
+    url: '/',
+    headers: {
+      'host': 'www.host',
+      'X-Forwarded-Proto': 'http'
+    }
+  })
+    .then(function (response) {
+      t.equal(response.statusCode, 301, 'sets 301 code')
+      t.equal(response.headers.location, 'https://host/', 'sets Location header')
+    })
+})
+
 test('https with non-www redirect', function (t) {
   t.plan(2)
 
