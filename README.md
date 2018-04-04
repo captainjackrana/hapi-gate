@@ -27,6 +27,13 @@ Default: `true`
 
 Indicates whether the server should redirect any non-https calls to the https protocol
 
+#### **proxy**
+
+Type: `boolean`
+Default: `false`
+
+Indicates wheter or not the server is behind a proxy handling the https traffic. We will then redirect traffic to https based on the `X-Forwarded-Proto` header.
+
 ##### **www**
 
 Type: `boolean`  
