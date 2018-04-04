@@ -9,6 +9,8 @@ let plugin = {
       let opts = Object.assign(defaultOpts, options); 
       let host = request.headers.host;
       let protocol = request.server.info.protocol;
+      let forwardedProtocol = request.headers['x-forwarded-proto'];
+      let isHttpProtocol = opts.proxy ? forwardedProtocol === 'http' : protocol === 'http';
       let redirect = false;
 
       if((opts.www && !/^www\./.test(host)) || (opts.nonwww && /^www\./.test(host))) {
@@ -17,7 +19,7 @@ let plugin = {
       }
       
       // https redirects
-      if(opts.https && protocol === 'http'){
+      if (opts.https && isHttpProtocol){
           protocol = 'https';
           redirect = true;
       }
