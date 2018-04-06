@@ -29,10 +29,10 @@ Indicates whether the server should redirect any non-https calls to the https pr
 
 #### **proxy**
 
-Type: `boolean`
+Type: `boolean`  
 Default: `false`
 
-Indicates wheter or not the server is behind a proxy handling the https traffic. We will then redirect traffic to https based on the `X-Forwarded-Proto` header.
+Indicates whether or not the server is behind a proxy handling the https traffic. Redirections will then be made based on the `X-Forwarded-Proto` header.
 
 ##### **www**
 
