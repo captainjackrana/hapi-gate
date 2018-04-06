@@ -27,7 +27,7 @@ Default: `true`
 
 Indicates whether the server should redirect any non-https calls to the https protocol
 
-#### **proxy**
+##### **proxy**
 
 Type: `boolean`  
 Default: `false`
