@@ -229,6 +229,27 @@ test('https with non-www redirect', function (t) {
     })
 })
 
+// https://github.com/captainjackrana/hapi-gate/issues/5
+test('https with proxy and www redirect (from https behind proxy)', function (t) {
+  t.plan(2)
+
+  Server({ https: true, proxy: true, www: true }).inject({
+    url: '/',
+    headers: {
+      host: 'host',
+      'X-Forwarded-Proto': 'https'
+    }
+  })
+  .then(function (response) {
+    t.equal(response.statusCode, 301, 'sets 301 code')
+    t.equal(
+      response.headers.location,
+      'https://www.host/',
+      'sets Location header'
+    )
+  })
+})
+
 function Server(options) {
   let server = hapi.server()
   server.register({ plugin: plugin, options: options })
