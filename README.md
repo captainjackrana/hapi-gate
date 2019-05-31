@@ -4,7 +4,9 @@ hapi-gate
 > A lightweight hapi plugin that adds basic redirections to your server ( http -> https and www/non-www redirects)
 
 As a default, any incoming http request will be redirected **(301)** to the same host and path with `https` as the protocol. 
-Highly influenced from [hapi-require-https](https://github.com/bendrucker/hapi-require-https). If you're only looking for https redirections, you can use that plugin..
+Highly influenced from [hapi-require-https](https://github.com/bendrucker/hapi-require-https). If you're only looking for https redirections, you can use that plugin.
+
+[![NPM](https://nodei.co/npm/hapi-gate.png)](https://nodei.co/npm/hapi-gate/)
 
 ## Usage
 
