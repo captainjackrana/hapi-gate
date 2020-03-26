@@ -14,7 +14,7 @@ Highly influenced from [hapi-require-https](https://github.com/bendrucker/hapi-r
 
 ```js
 server.register({
-  register: require('hapi-gate'),
+  plugin: require('hapi-gate'),
   options: {https: true,
             www: true} // will force https and www on all requests
 })
